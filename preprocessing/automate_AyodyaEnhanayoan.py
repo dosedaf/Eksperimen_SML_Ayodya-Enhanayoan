@@ -21,7 +21,7 @@ def preprocess_data(data, target_column, save_pipeline_path, save_header_path):
     column_names = data.columns.drop(target_column)
     df_header = pd.DataFrame(columns=column_names)
     df_header.to_csv(save_header_path, index=False)
-    print(f"✅ Header kolom disimpan ke: {save_header_path}")
+    print(f"header saved: {save_header_path}")
 
     numeric_transformer = Pipeline(steps=[
         ('imputer', SimpleImputer(strategy='median')),
@@ -49,9 +49,7 @@ def preprocess_data(data, target_column, save_pipeline_path, save_header_path):
     X_test_transformed = preprocessor.transform(X_test)
 
     dump(preprocessor, save_pipeline_path)
-    print(f"✅ Pipeline preprocessing disimpan ke: {save_pipeline_path}")
-
-    print("✅ File dataset hasil preprocessing berhasil disimpan!")
+    print(f"pipeline saved: {save_pipeline_path}")
 
     return X_train_transformed, X_test_transformed, y_train, y_test
 
@@ -77,8 +75,8 @@ if __name__ == "__main__":
         csv_output_path = os.path.join(current_dir, 'heart_preprocessed.csv')
         X_train_df.to_csv(csv_output_path, index=False)
 
-        print(f"✅ SUKSES! File CSV dibuat di: {csv_output_path}")
-        print(f"📊 Ukuran Data: {X_train_df.shape}")
+        print(f"csv created: {csv_output_path}")
+        print(f"size: {X_train_df.shape}")
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"error: {e}")
